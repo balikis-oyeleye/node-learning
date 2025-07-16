@@ -6,11 +6,31 @@ mongoose
   .catch((err) => console.log("could not cannot to mongodb"));
 
 const courseSchema = new mongoose.Schema({
-  name: String,
+  name: { type: String, required: true, minLength: 4 },
   author: String,
-  tags: [String],
+  tags: {
+    type: Array,
+    validate: {
+      validator: function (value) {
+        return value.length > 0;
+      },
+    },
+  },
   date: { type: Date, default: Date.now },
   isPublished: Boolean,
+  price: {
+    type: Number,
+    required: function () {
+      return this.isPublished;
+    },
+    min: 0,
+    max: 100,
+  },
+  category: {
+    type: String,
+    enum: ["frontend", "backend", "fullstack"],
+    
+  },
 });
 
 const Course = mongoose.model("Course", courseSchema);
@@ -19,15 +39,21 @@ const createCourse = async () => {
   const course = new Course({
     name: "Angular Course",
     author: "Mosh",
-    tags: ["frontend", "angular"],
+    // tags: ["frontend", "angular"],
     isPublished: true,
+    price: 10,
+    category: "backend",
   });
 
-  const result = await course.save();
-  console.log(result);
+  try {
+    const result = await course.save();
+    console.log(result);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-// console.log(createCourse());
+console.log(createCourse());
 
 async function getCourses() {
   const courses = await Course.find({
@@ -48,4 +74,4 @@ async function updateCourse(id) {
   console.log(result);
 }
 
-updateCourse("6875fa919c23b0be2d3e15b2");
+// updateCourse("6875fa919c23b0be2d3e15b2");
