@@ -3,6 +3,7 @@ import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 import coursesRouter from "./modules/courses/courses.routes.js";
+import config from "./config/config.js";
 
 dotenv.config();
 
@@ -23,8 +24,7 @@ app.use("/courses", coursesRouter);
 /*
  * Port configuration
  */
-const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(config.PORT, () => {
+  console.log(`Server is running on port ${config.PORT}`);
 });
