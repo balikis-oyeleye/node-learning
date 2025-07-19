@@ -5,6 +5,7 @@ import morgan from "morgan";
 import coursesRouter from "./modules/courses/courses.routes.js";
 import config from "./config/config.js";
 import connectDatabase from "./config/database.config.js";
+import instructorRouter from "./instructor/instructor.routes.js";
 
 dotenv.config();
 
@@ -20,7 +21,8 @@ if (app.get("env") === "development") {
 /*
  * Routes configuration
  */
-app.use("/courses", coursesRouter);
+app.use("/api/courses", coursesRouter);
+app.use("api/instructors", instructorRouter);
 
 /*
  * Port configuration
