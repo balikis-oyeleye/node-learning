@@ -11,12 +11,22 @@ import {
 const studentRouter = express.Router();
 
 studentRouter.post("/", createStudent);
+studentRouter.post("/:studentId/courses/:courseId/register", (req, res) => {});
+
 studentRouter.get("/", getAllStudents);
+studentRouter.get("/:studentId", getStudent);
+studentRouter.get("/:studentId/courses", getStudentCourses);
 
-studentRouter.get("/:instructorId", getStudent);
-studentRouter.put("/:instructorId", updateStudent);
-studentRouter.delete("/:instructorId", deleteStudent);
+studentRouter.put("/:studentId", updateStudent);
+studentRouter.put(
+  "/:studentId/courses/:courseId/mark-as-completed",
+  (req, res) => {}
+);
 
-studentRouter.get("/:instructorId/courses", getStudentCourses);
+studentRouter.delete("/:studentId", deleteStudent);
+studentRouter.delete(
+  "/:studentId/courses/:courseId/unregister",
+  (req, res) => {}
+);
 
 export default studentRouter;

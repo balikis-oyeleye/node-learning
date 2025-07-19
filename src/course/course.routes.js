@@ -1,13 +1,18 @@
 import express from "express";
-import { getCourse, getCourses } from "./courses.controller.js";
+import {
+  createCourse,
+  deleteCourse,
+  getAllCourses,
+  getCourse,
+  updateCourse,
+} from "./course.controller";
 
 const coursesRouter = express.Router();
 
-coursesRouter.get("/", getCourses);
-
+coursesRouter.get("/", getAllCourses);
 coursesRouter.get("/:courseId", getCourse);
 
-coursesRouter.post("/", addCourse);
+coursesRouter.post("/", createCourse);
 
 coursesRouter.put("/:courseId", updateCourse);
 
