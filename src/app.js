@@ -2,10 +2,11 @@ import dotenv from "dotenv";
 import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
-import coursesRouter from "./modules/courses/courses.routes.js";
 import config from "./config/config.js";
 import connectDatabase from "./config/database.config.js";
 import instructorRouter from "./instructor/instructor.routes.js";
+import coursesRouter from "./course/course.routes.js";
+import studentRouter from "./student/student.routes.js";
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ if (app.get("env") === "development") {
  */
 app.use("/api/courses", coursesRouter);
 app.use("api/instructors", instructorRouter);
+app.use("api/instructors", studentRouter);
 
 /*
  * Port configuration
