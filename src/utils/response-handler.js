@@ -16,7 +16,7 @@ export class ResponseHandler {
   }
 
   // For all responses
-  static send(res, status, responseData, responseMessage, responseCode) {
+  static send(res, status, responseMessage, responseCode, responseData = null) {
     return new ResponseHandler({
       status,
       responseCode,
