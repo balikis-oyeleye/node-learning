@@ -7,6 +7,7 @@ import connectDatabase from "./config/database.config.js";
 import instructorRouter from "./instructor/instructor.routes.js";
 import coursesRouter from "./course/course.routes.js";
 import studentRouter from "./student/student.routes.js";
+import authRouter from "./auth/auth.routes.js";
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ if (app.get("env") === "development") {
 /*
  * Routes configuration
  */
+app.use("/api/auth", authRouter);
 app.use("/api/courses", coursesRouter);
 app.use("/api/instructors", instructorRouter);
 app.use("/api/students", studentRouter);

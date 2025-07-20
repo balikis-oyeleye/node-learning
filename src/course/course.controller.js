@@ -33,7 +33,7 @@ export const createCourse = async (req, res) => {
       course
     );
   } catch (error) {
-    return new ResponseHandler.send(res, false, "Internal Server Error", 500);
+    return ResponseHandler.send(res, false, error.message, 500);
   }
 };
 
@@ -57,7 +57,7 @@ export const getCourse = async (req, res) => {
       course
     );
   } catch (error) {
-    return ResponseHandler.send(res, false, "Internal Server Error", 500);
+    return ResponseHandler.send(res, false, error.message, 500);
   }
 };
 
@@ -99,7 +99,7 @@ export const updateCourse = async (req, res) => {
       updatedCourse
     );
   } catch (error) {
-    return ResponseHandler.send(res, false, "Internal Server Error", 500);
+    return ResponseHandler.send(res, false, error.message, 500);
   }
 };
 
@@ -119,7 +119,7 @@ export const deleteCourse = async (req, res) => {
 
     return ResponseHandler.send(res, true, "Course deleted successfully", 200);
   } catch (error) {
-    return ResponseHandler.send(res, false, "Internal Server Error", 500);
+    return ResponseHandler.send(res, false, error.message, 500);
   }
 };
 
@@ -137,6 +137,6 @@ export const getAllCourses = async (_, res) => {
       courses
     );
   } catch (error) {
-    return ResponseHandler.send(res, false, "Internal Server Error", 500);
+    return ResponseHandler.send(res, false, error.message, 500);
   }
 };
