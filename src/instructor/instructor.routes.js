@@ -7,7 +7,7 @@ import {
   getInstructorCourses,
   removeStudentFromCourse,
   updateInstructor,
-} from "./instructor.controller";
+} from "./instructor.controller.js";
 
 const instructorRouter = express.Router();
 

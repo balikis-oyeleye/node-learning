@@ -6,7 +6,7 @@ import {
   getStudent,
   getStudentCourses,
   updateStudent,
-} from "./student.controller";
+} from "./student.controller.js";
 
 const studentRouter = express.Router();
 

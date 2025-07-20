@@ -22,9 +22,9 @@ if (app.get("env") === "development") {
 /*
  * Routes configuration
  */
-app.use("api/courses", coursesRouter);
-app.use("api/instructors", instructorRouter);
-app.use("api/students", studentRouter);
+app.use("/api/courses", coursesRouter);
+app.use("/api/instructors", instructorRouter);
+app.use("/api/students", studentRouter);
 
 /*
  * Port configuration

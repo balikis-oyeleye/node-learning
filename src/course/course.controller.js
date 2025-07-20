@@ -1,24 +1,31 @@
 import mongoose from "mongoose";
-import { ResponseHandler } from "../utils/response-handler";
-import { validateSchema } from "../utils/validate";
-import Course from "./course.model";
-import { courseSchema } from "./course.schema";
+import { ResponseHandler } from "../utils/response-handler.js";
+import { validateSchema } from "../utils/validate.js";
+import Course from "./course.model.js";
+import { courseSchema } from "./course.schema.js";
+import Instructor from "../instructor/instructor.model.js";
 
 export const createCourse = async (req, res) => {
   try {
     const result = validateSchema(courseSchema, req.body);
     if (!result.success) {
-      return ResponseHandler(res, false, result.error, 400);
+      return ResponseHandler.send(res, false, result.error, 400);
     }
 
     const courseData = result.data;
     const course = await Course.create(courseData);
 
     if (!course) {
-      return ResponseHandler(res, false, "Course creation failed", 500);
+      return ResponseHandler.send(res, false, "Course creation failed", 500);
     }
 
-    return ResponseHandler(
+    await Instructor.findByIdAndUpdate(
+      courseData.instructorId,
+      { $push: { courses: course._id } },
+      { new: true }
+    );
+
+    return ResponseHandler.send(
       res,
       true,
       "Course created successfully",
@@ -26,7 +33,7 @@ export const createCourse = async (req, res) => {
       course
     );
   } catch (error) {
-    return ResponseHandler(res, false, "Internal Server Error", 500);
+    return new ResponseHandler.send(res, false, "Internal Server Error", 500);
   }
 };
 
@@ -34,15 +41,15 @@ export const getCourse = async (req, res) => {
   try {
     const courseId = req.params.courseId;
     if (!courseId || !mongoose.Types.ObjectId.isValid(courseId)) {
-      return ResponseHandler(res, false, "Invalid Course ID", 400);
+      return ResponseHandler.send(res, false, "Invalid Course ID", 400);
     }
 
     const course = await Course.findById(courseId).populate("instructorId");
     if (!course) {
-      return ResponseHandler(res, false, "Course not found", 404);
+      return ResponseHandler.send(res, false, "Course not found", 404);
     }
 
-    return ResponseHandler(
+    return ResponseHandler.send(
       res,
       true,
       "Course retrieved successfully",
@@ -50,7 +57,7 @@ export const getCourse = async (req, res) => {
       course
     );
   } catch (error) {
-    return ResponseHandler(res, false, "Internal Server Error", 500);
+    return ResponseHandler.send(res, false, "Internal Server Error", 500);
   }
 };
 
@@ -59,17 +66,17 @@ export const updateCourse = async (req, res) => {
     const courseId = req.params.courseId;
 
     if (!courseId || !mongoose.Types.ObjectId.isValid(courseId)) {
-      return ResponseHandler(res, false, "Invalid Course ID", 400);
+      return ResponseHandler.send(res, false, "Invalid Course ID", 400);
     }
 
     const result = validateSchema(courseSchema, req.body);
     if (!result.success) {
-      return ResponseHandler(res, false, result.error, 400);
+      return ResponseHandler.send(res, false, result.error, 400);
     }
 
     const course = await Course.findById(courseId);
     if (!course) {
-      return ResponseHandler(res, false, "Course not found", 404);
+      return ResponseHandler.send(res, false, "Course not found", 404);
     }
 
     const updatedCourse = await Course.findByIdAndUpdate(
@@ -81,10 +88,10 @@ export const updateCourse = async (req, res) => {
     );
 
     if (!updatedCourse) {
-      return ResponseHandler(res, false, "Course update failed", 500);
+      return ResponseHandler.send(res, false, "Course update failed", 500);
     }
 
-    return ResponseHandler(
+    return ResponseHandler.send(
       res,
       true,
       "Course updated successfully",
@@ -92,7 +99,7 @@ export const updateCourse = async (req, res) => {
       updatedCourse
     );
   } catch (error) {
-    return ResponseHandler(res, false, "Internal Server Error", 500);
+    return ResponseHandler.send(res, false, "Internal Server Error", 500);
   }
 };
 
@@ -100,19 +107,19 @@ export const deleteCourse = async (req, res) => {
   try {
     const courseId = req.params.courseId;
     if (!courseId || !mongoose.Types.ObjectId.isValid(courseId)) {
-      return ResponseHandler(res, false, "Invalid Course ID", 400);
+      return ResponseHandler.send(res, false, "Invalid Course ID", 400);
     }
 
     const course = await Course.findById(courseId);
     if (!course) {
-      return ResponseHandler(res, false, "Course not found", 404);
+      return ResponseHandler.send(res, false, "Course not found", 404);
     }
 
     await Course.findByIdAndDelete(courseId);
 
-    return ResponseHandler(res, true, "Course deleted successfully", 200);
+    return ResponseHandler.send(res, true, "Course deleted successfully", 200);
   } catch (error) {
-    return ResponseHandler(res, false, "Internal Server Error", 500);
+    return ResponseHandler.send(res, false, "Internal Server Error", 500);
   }
 };
 
@@ -120,7 +127,7 @@ export const getAllCourses = async (_, res) => {
   try {
     const courses = await Course.find().populate("instructorId");
 
-    return ResponseHandler(
+    return ResponseHandler.send(
       res,
       true,
       courses.length > 0
@@ -130,6 +137,6 @@ export const getAllCourses = async (_, res) => {
       courses
     );
   } catch (error) {
-    return ResponseHandler(res, false, "Internal Server Error", 500);
+    return ResponseHandler.send(res, false, "Internal Server Error", 500);
   }
 };
