@@ -1,9 +1,8 @@
-export const validateSchema = (schema, data, res) => {
+export const validateSchema = (schema, data) => {
   const result = schema.safeParse(data);
 
   if (!result.success) {
-    res.status(400).json({ errors: result.error.format() });
-    return { success: false };
+    return { success: false, error: result.error.format() };
   }
 
   return { success: true, data: result.data };
