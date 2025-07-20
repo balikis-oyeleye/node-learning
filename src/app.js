@@ -8,6 +8,7 @@ import instructorRouter from "./instructor/instructor.routes.js";
 import coursesRouter from "./course/course.routes.js";
 import studentRouter from "./student/student.routes.js";
 import authRouter from "./auth/auth.routes.js";
+import { checkAuth } from "./middlewares/auth.middleware.js";
 
 dotenv.config();
 
@@ -24,9 +25,9 @@ if (app.get("env") === "development") {
  * Routes configuration
  */
 app.use("/api/auth", authRouter);
-app.use("/api/courses", coursesRouter);
-app.use("/api/instructors", instructorRouter);
-app.use("/api/students", studentRouter);
+app.use("/api/courses", checkAuth, coursesRouter);
+app.use("/api/instructors", checkAuth, instructorRouter);
+app.use("/api/students", checkAuth, studentRouter);
 
 /*
  * Port configuration

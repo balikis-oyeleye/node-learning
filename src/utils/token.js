@@ -7,3 +7,12 @@ export const createToken = (userId, email) => {
   });
   return token;
 };
+
+export const verifyToken = (token) => {
+  try {
+    const decoded = jwt.verify(token, config.JWT_SECRET);
+    return decoded;
+  } catch (error) {
+    return null;
+  }
+};
