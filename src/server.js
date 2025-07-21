@@ -8,7 +8,8 @@ import instructorRouter from "./instructor/instructor.routes.js";
 import coursesRouter from "./course/course.routes.js";
 import studentRouter from "./student/student.routes.js";
 import authRouter from "./auth/auth.routes.js";
-import { checkAuth } from "./middlewares/auth.middleware.js";
+import { protect } from "./middlewares/auth.middleware.js";
+import cors from "cors";
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ const app = express();
 
 app.use(express.json());
 app.use(helmet());
+app.use(cors());
 
 if (app.get("env") === "development") {
   app.use(morgan("dev"));
@@ -25,9 +27,9 @@ if (app.get("env") === "development") {
  * Routes configuration
  */
 app.use("/api/auth", authRouter);
-app.use("/api/courses", checkAuth, coursesRouter);
-app.use("/api/instructors", checkAuth, instructorRouter);
-app.use("/api/students", checkAuth, studentRouter);
+app.use("/api/courses", protect, coursesRouter);
+app.use("/api/instructors", protect, instructorRouter);
+app.use("/api/students", protect, studentRouter);
 
 /*
  * Port configuration

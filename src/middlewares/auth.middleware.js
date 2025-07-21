@@ -1,11 +1,11 @@
 import { ResponseHandler } from "../utils/response-handler";
 import { verifyToken } from "../utils/token";
 
-export const checkAuth = async (req, res, next) => {
+export const protect = async (req, res, next) => {
   try {
-    const token = req.header("x-auth-token");
+    const bearer = req.header("x-auth-token");
 
-    if (!token) {
+    if (!token || !bearer.startsWith("Bearer ")) {
       return ResponseHandler.send(
         res,
         false,
@@ -14,10 +14,14 @@ export const checkAuth = async (req, res, next) => {
       );
     }
 
-    const decoded = verifyToken(token);
+    const token = bearer.split("Bearer ")[1].trim();
 
-    if (!decoded) {
-      return ResponseHandler.send(res, false, "Invalid or expired token", 401);
+    let decoded;
+
+    try {
+      decoded = verifyToken(token);
+    } catch (error) {
+      return ResponseHandler.send(res, false, "Invalid token format", 400);
     }
 
     req.user = {
