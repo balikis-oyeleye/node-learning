@@ -9,13 +9,12 @@ import {
 
 const coursesRouter = express.Router();
 
-coursesRouter.get("/", getAllCourses);
-coursesRouter.get("/:courseId", getCourse);
+coursesRouter.route("/").get(getAllCourses).post(createCourse);
 
-coursesRouter.post("/", createCourse);
-
-coursesRouter.put("/:courseId", updateCourse);
-
-coursesRouter.delete("/:courseId", deleteCourse);
+coursesRouter
+  .route("/:courseId")
+  .get(getCourse)
+  .put(updateCourse)
+  .delete(deleteCourse);
 
 export default coursesRouter;
