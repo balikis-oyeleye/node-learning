@@ -1,8 +1,8 @@
 import User from "../user/user.model.js";
-import { ResponseHandler } from "../utils/response-handler.js";
-import { createToken } from "../utils/token.js";
-import { validateSchema } from "../utils/validate";
-import { loginUserSchema, registerUserSchema } from "./auth.schema";
+import { ResponseHandler } from "../../utils/response-handler.js";
+import { createToken } from "../../utils/token.js";
+import { validateSchema } from "../../utils/validate.js";
+import { loginUserSchema, registerUserSchema } from "./auth.schema.js";
 import bcrypt from "bcrypt";
 
 export const registerUser = async (req, res) => {

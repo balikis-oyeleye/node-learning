@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import { ResponseHandler } from "../utils/response-handler.js";
-import { validateSchema } from "../utils/validate.js";
+import { ResponseHandler } from "../../utils/response-handler.js";
+import { validateSchema } from "../../utils/validate.js";
 import Course from "./course.model.js";
 import { courseSchema } from "./course.schema.js";
 import Instructor from "../instructor/instructor.model.js";

@@ -4,10 +4,10 @@ import helmet from "helmet";
 import morgan from "morgan";
 import config from "./config/config.js";
 import connectDatabase from "./config/database.config.js";
-import instructorRouter from "./instructor/instructor.routes.js";
-import coursesRouter from "./course/course.routes.js";
-import studentRouter from "./student/student.routes.js";
-import authRouter from "./auth/auth.routes.js";
+import instructorRouter from "./resourses/instructor/instructor.routes.js";
+import coursesRouter from "./resourses/course/course.routes.js";
+import studentRouter from "./resourses/student/student.routes.js";
+import authRouter from "./resourses/auth/auth.routes.js";
 import { protect } from "./middlewares/auth.middleware.js";
 import cors from "cors";
 
