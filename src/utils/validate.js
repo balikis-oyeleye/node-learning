@@ -10,6 +10,8 @@ const formatZodError = (error) => {
 };
 
 export const validateSchema = (schema, data) => {
+  if (!data) return { success: false, error: "Data is required" };
+
   const result = schema.safeParse(data);
 
   if (!result.success) {

@@ -21,7 +21,21 @@ export const protectedRoutes = async (req, res, next) => {
     try {
       decoded = verifyToken(token);
     } catch (error) {
-      return ResponseHandler.send(res, false, "Invalid token format", 400);
+      return ResponseHandler.send(
+        res,
+        false,
+        "Invalid authorization token",
+        401
+      );
+    }
+
+    if (!decoded) {
+      return ResponseHandler.send(
+        res,
+        false,
+        "Invalid authorization token",
+        401
+      );
     }
 
     req.user = {

@@ -8,6 +8,7 @@ import bcrypt from "bcryptjs";
 export const registerUser = async (req, res) => {
   try {
     const result = validateSchema(registerUserSchema, req.body);
+
     if (!result.success) {
       return ResponseHandler.send(res, false, result.error, 400);
     }
@@ -32,7 +33,19 @@ export const registerUser = async (req, res) => {
 
     await newUser.save();
 
-    return ResponseHandler.send(res, true, "User registered successfully", 201);
+    return ResponseHandler.send(
+      res,
+      true,
+      "User registered successfully",
+      201,
+      {
+        userId: newUser.userId,
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+        phoneNumber: newUser.phoneNumber,
+        email: newUser.email,
+      }
+    );
   } catch (error) {
     return ResponseHandler.send(res, false, error.message, 500);
   }
@@ -41,10 +54,15 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   try {
     const result = validateSchema(loginUserSchema, req.body);
+    console.log(result, req.body);
     if (!result.success) {
       return ResponseHandler.send(res, false, result.error, 400);
     }
+
+    const { email, password } = result.data;
+
     let existingUser = await User.findOne({ email });
+
     if (!existingUser) {
       return ResponseHandler.send(res, false, "User not found", 404);
     }
