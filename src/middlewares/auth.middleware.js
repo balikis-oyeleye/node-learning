@@ -5,7 +5,7 @@ export const protectedRoutes = async (req, res, next) => {
   try {
     const bearer = req.header("x-auth-token");
 
-    if (!token || !bearer.startsWith("Bearer ")) {
+    if (!bearer || !bearer.startsWith("Bearer ")) {
       return ResponseHandler.send(
         res,
         false,
@@ -31,6 +31,6 @@ export const protectedRoutes = async (req, res, next) => {
 
     next();
   } catch (error) {
-    return ResponseHandler.send(res, false, "Authentication failed", 500);
+    return ResponseHandler.send(res, false, error.message, 500);
   }
 };
