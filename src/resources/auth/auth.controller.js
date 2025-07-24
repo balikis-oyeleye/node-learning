@@ -3,7 +3,7 @@ import { ResponseHandler } from "../../utils/response-handler.js";
 import { createToken } from "../../utils/token.js";
 import { validateSchema } from "../../utils/validate.js";
 import { loginUserSchema, registerUserSchema } from "./auth.schema.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 export const registerUser = async (req, res) => {
   try {

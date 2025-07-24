@@ -4,11 +4,11 @@ import helmet from "helmet";
 import morgan from "morgan";
 import config from "./config/config.js";
 import connectDatabase from "./config/database.config.js";
-import instructorRouter from "./resourses/instructor/instructor.routes.js";
-import coursesRouter from "./resourses/course/course.routes.js";
-import studentRouter from "./resourses/student/student.routes.js";
-import authRouter from "./resourses/auth/auth.routes.js";
-import { protect } from "./middlewares/auth.middleware.js";
+import instructorRouter from "./resources/instructor/instructor.routes.js";
+import coursesRouter from "./resources/course/course.routes.js";
+import studentRouter from "./resources/student/student.routes.js";
+import authRouter from "./resources/auth/auth.routes.js";
+import { protectedRoutes } from "./middlewares/auth.middleware.js";
 import cors from "cors";
 
 dotenv.config();
@@ -27,9 +27,9 @@ if (app.get("env") === "development") {
  * Routes configuration
  */
 app.use("/api/auth", authRouter);
-app.use("/api/courses", protect, coursesRouter);
-app.use("/api/instructors", protect, instructorRouter);
-app.use("/api/students", protect, studentRouter);
+app.use("/api/courses", protectedRoutes, coursesRouter);
+app.use("/api/instructors", protectedRoutes, instructorRouter);
+app.use("/api/students", protectedRoutes, studentRouter);
 
 /*
  * Port configuration

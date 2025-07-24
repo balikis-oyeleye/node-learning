@@ -1,7 +1,7 @@
-import { ResponseHandler } from "../utils/response-handler";
-import { verifyToken } from "../utils/token";
+import { ResponseHandler } from "../utils/response-handler.js";
+import { verifyToken } from "../utils/token.js";
 
-export const protect = async (req, res, next) => {
+export const protectedRoutes = async (req, res, next) => {
   try {
     const bearer = req.header("x-auth-token");
 

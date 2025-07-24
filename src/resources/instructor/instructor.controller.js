@@ -1,5 +1,5 @@
-import { ResponseHandler } from "../utils/response-handler.js";
-import { validateSchema } from "../utils/validate.js";
+import { ResponseHandler } from "../../utils/response-handler.js";
+import { validateSchema } from "../../utils/validate.js";
 import Instructor from "./instructor.model.js";
 import { instructorSchema } from "./instructor.schema.js";
 
