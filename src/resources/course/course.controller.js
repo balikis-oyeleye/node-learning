@@ -6,35 +6,36 @@ import { courseSchema } from "./course.schema.js";
 import Instructor from "../instructor/instructor.model.js";
 
 export const createCourse = async (req, res) => {
-  try {
-    const result = validateSchema(courseSchema, req.body);
-    if (!result.success) {
-      return ResponseHandler.send(res, false, result.error, 400);
-    }
+  // try {
+  //   const result = validateSchema(courseSchema, req.body);
+  //   if (!result.success) {
+  //     return ResponseHandler.send(res, false, result.error, 400);
+  //   }
 
-    const courseData = result.data;
-    const course = await Course.create(courseData);
+  //   const courseData = result.data;
+  //   const course = await Course.create(courseData);
 
-    if (!course) {
-      return ResponseHandler.send(res, false, "Course creation failed", 500);
-    }
+  //   if (!course) {
+  //     return ResponseHandler.send(res, false, "Course creation failed", 500);
+  //   }
 
-    await Instructor.findByIdAndUpdate(
-      courseData.instructorId,
-      { $push: { courses: course._id } },
-      { new: true }
-    );
+  //   await Instructor.findByIdAndUpdate(
+  //     courseData.instructorId,
+  //     { $push: { courses: course._id } },
+  //     { new: true }
+  //   );
 
-    return ResponseHandler.send(
-      res,
-      true,
-      "Course created successfully",
-      201,
-      course
-    );
-  } catch (error) {
-    return ResponseHandler.send(res, false, error.message, 500);
-  }
+  //   return ResponseHandler.send(
+  //     res,
+  //     true,
+  //     "Course created successfully",
+  //     201,
+  //     course
+  //   );
+  // } catch (error) {
+  //   return ResponseHandler.send(res, false, error.message, 500);
+  // }
+  throw new Error("Not implemented");
 };
 
 export const getCourse = async (req, res) => {

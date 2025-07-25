@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import { logger } from "./logger.js";
 
 dotenv.config();
 
@@ -10,8 +11,8 @@ const connectDatabase = async () => {
     const connect = await mongoose.connect(mongodbUri);
 
     console.log(`MongoDB connected: ${connect.connection.host}`);
-  } catch (error) {
-    console.log(`MongoDB connection error: ${error.message}`);
+  } catch (err) {
+    logger.error(`${err.message} - ${err.stack}`);
     process.exit(1);
   }
 };
