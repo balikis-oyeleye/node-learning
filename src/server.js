@@ -9,6 +9,7 @@ import connectDatabase from "./config/database.config.js";
 import cors from "cors";
 import { errorHandler } from "./middlewares/global-errors.middleware.js";
 import setupRoutes from "./startup/routes.js";
+import { logger } from "./config/logger.js";
 
 const app = express();
 
@@ -18,6 +19,7 @@ const app = express();
 app.use(express.json());
 app.use(helmet());
 app.use(cors());
+
 if (app.get("env") === "development") {
   app.use(morgan("dev"));
 }
@@ -28,6 +30,16 @@ if (app.get("env") === "development") {
 process.on("SIGTERM", () => {
   logger.info("SIGTERM received. Shutting down gracefully...");
   process.exit(0);
+});
+
+process.on("uncaughtException", (err) => {
+  logger.error(`${err.message} - ${err.stack}`);
+  process.exit(1);
+});
+
+process.on("unhandledRejection", (err) => {
+  logger.error(`${err.message} - ${err.stack}`);
+  process.exit(1);
 });
 
 /*
