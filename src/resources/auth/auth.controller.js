@@ -4,6 +4,8 @@ import { createToken } from "../../utils/token.js";
 import { validateSchema } from "../../utils/validate.js";
 import { loginUserSchema, registerUserSchema } from "./auth.schema.js";
 import bcrypt from "bcryptjs";
+import Instructor from "../instructor/instructor.model.js";
+import Student from "../student/student.model.js";
 
 export const registerUser = async (req, res) => {
   const result = validateSchema(registerUserSchema, req.body);
@@ -12,7 +14,15 @@ export const registerUser = async (req, res) => {
     return ResponseHandler.send(res, false, result.error, 400);
   }
 
-  const { firstName, lastName, phoneNumber, email, password } = result.data;
+  const {
+    firstName,
+    lastName,
+    phoneNumber,
+    email,
+    password,
+    userType,
+    classLevel,
+  } = result.data;
 
   let existingUser = await User.findOne({ email });
   if (existingUser) {
@@ -32,6 +42,17 @@ export const registerUser = async (req, res) => {
 
   await newUser.save();
 
+  if (userType === "student") {
+    await Student.create({
+      userId: newUser.userId,
+      classLevel,
+    });
+  } else if (userType === "instructor") {
+    await Instructor.create({
+      userId: newUser.userId,
+    });
+  }
+
   return ResponseHandler.send(res, true, "User registered successfully", 201, {
     userId: newUser.userId,
     firstName: newUser.firstName,
@@ -43,7 +64,7 @@ export const registerUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
   const result = validateSchema(loginUserSchema, req.body);
-  console.log(result, req.body);
+
   if (!result.success) {
     return ResponseHandler.send(res, false, result.error, 400);
   }
@@ -55,13 +76,13 @@ export const loginUser = async (req, res) => {
   if (!existingUser) {
     return ResponseHandler.send(res, false, "User not found", 404);
   }
+
   const passwordMatch = await bcrypt.compare(password, existingUser.password);
   if (!passwordMatch) {
     return ResponseHandler.send(res, false, "Invalid credentials", 401);
   }
 
   const token = createToken(existingUser.userId, existingUser.email);
-  res.header("x-auth-token", token);
 
   return ResponseHandler.send(res, true, "User logged in successfully", 200, {
     token,

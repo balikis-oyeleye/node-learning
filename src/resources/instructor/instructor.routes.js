@@ -11,8 +11,6 @@ import {
 
 const instructorRouter = express.Router();
 
-instructorRouter.post("/", createInstructor);
-
 instructorRouter.get("/", getAllInstructors);
 instructorRouter.get("/:instructorId", getInstructor);
 instructorRouter.get("/:instructorId/courses", getInstructorCourses);

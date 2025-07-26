@@ -2,16 +2,10 @@ import mongoose from "mongoose";
 
 const studentSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
-      trim: true,
-    },
-    email: {
-      type: String,
-      unique: true,
-      required: true,
-      trim: true,
+      ref: "User",
     },
     classLevel: {
       type: Number,
@@ -19,18 +13,15 @@ const studentSchema = new mongoose.Schema(
       min: 1,
       max: 12,
     },
-    phoneNumber: {
-      type: String,
-      required: true,
-      unique: true,
-    },
     activeCourses: {
       type: [mongoose.Schema.Types.ObjectId],
       ref: "Course",
+      default: [],
     },
     completedCourses: {
       type: [mongoose.Schema.Types.ObjectId],
       ref: "Course",
+      default: [],
     },
   },
   {

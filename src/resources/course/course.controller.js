@@ -98,6 +98,12 @@ export const deleteCourse = async (req, res) => {
     return ResponseHandler.send(res, false, "Course not found", 404);
   }
 
+  await Instructor.findByIdAndUpdate(
+    course.instructorId,
+    { $pull: { courses: course._id } },
+    { new: true }
+  );
+
   await Course.findByIdAndDelete(courseId);
 
   return ResponseHandler.send(res, true, "Course deleted successfully", 200);

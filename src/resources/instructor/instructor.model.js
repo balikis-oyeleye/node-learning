@@ -2,19 +2,15 @@ import mongoose from "mongoose";
 
 const instructorSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
-    },
-    email: { type: String, required: true, unique: true },
-    phoneNumber: {
-      type: String,
-      required: true,
-      unique: true,
+      ref: "User",
     },
     courses: {
       type: [mongoose.Schema.Types.ObjectId],
       ref: "Course",
+      default: [],
     },
   },
   {

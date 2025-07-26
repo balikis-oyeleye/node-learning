@@ -3,7 +3,7 @@ import { verifyToken } from "../utils/token.js";
 
 export const protectedRoutes = async (req, res, next) => {
   try {
-    const bearer = req.header("x-auth-token");
+    const bearer = req.header("Authorization");
 
     if (!bearer || !bearer.startsWith("Bearer ")) {
       return ResponseHandler.send(
@@ -21,15 +21,6 @@ export const protectedRoutes = async (req, res, next) => {
     try {
       decoded = verifyToken(token);
     } catch (error) {
-      return ResponseHandler.send(
-        res,
-        false,
-        "Invalid authorization token",
-        401
-      );
-    }
-
-    if (!decoded) {
       return ResponseHandler.send(
         res,
         false,
