@@ -10,6 +10,7 @@ import cors from "cors";
 import { errorHandler } from "./middlewares/global-errors.middleware.js";
 import setupRoutes from "./startup/routes.js";
 import { logger } from "./config/logger.js";
+import { ResponseHandler } from "./utils/response-handler.js";
 
 const app = express();
 
@@ -33,12 +34,12 @@ process.on("SIGTERM", () => {
 });
 
 process.on("uncaughtException", (err) => {
-  logger.error(`${err.message} - ${err.stack}`);
+  logger.error(`Uncaught Exception: ${err}`);
   process.exit(1);
 });
 
 process.on("unhandledRejection", (err) => {
-  logger.error(`${err.message} - ${err.stack}`);
+  logger.error("Unhandled Rejection:", err);
   process.exit(1);
 });
 
