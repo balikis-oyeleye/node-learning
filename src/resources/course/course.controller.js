@@ -316,7 +316,9 @@ export const markCourseAsCompleted = async (req, res) => {
     return ResponseHandler.send(res, false, "Course not found", 404);
   }
 
-  const student = await Student.findById(req.user.userId).populate("user");
+  const student = await Student.findOne({ user: req.user.userId }).populate(
+    "user"
+  );
 
   if (!student) {
     return ResponseHandler.send(res, false, "Student not found", 404);
