@@ -25,3 +25,14 @@
     at C:\Users\Default\Projects\node-learning\node_modules\mongoose\lib\document.js:3115:17
     at C:\Users\Default\Projects\node-learning\node_modules\mongoose\lib\schemaType.js:1410:9
     at process.processTicksAndRejections (node:internal/process/task_queues:85:11)
+[2025-07-26T15:47:35.816Z] ERROR: studentId is not defined - ReferenceError: studentId is not defined
+    at enrollStudentToCourse (file:///C:/Users/Default/Projects/node-learning/src/resources/course/course.controller.js:239:3)
+    at Layer.handleRequest (C:\Users\Default\Projects\node-learning\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\Default\Projects\node-learning\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (C:\Users\Default\Projects\node-learning\node_modules\router\lib\route.js:117:3)
+    at handle (C:\Users\Default\Projects\node-learning\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (C:\Users\Default\Projects\node-learning\node_modules\router\lib\layer.js:152:17)
+    at C:\Users\Default\Projects\node-learning\node_modules\router\index.js:295:15
+    at param (C:\Users\Default\Projects\node-learning\node_modules\router\index.js:600:14)
+    at param (C:\Users\Default\Projects\node-learning\node_modules\router\index.js:610:14)
+    at processParams (C:\Users\Default\Projects\node-learning\node_modules\router\index.js:664:3)

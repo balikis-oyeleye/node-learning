@@ -8,6 +8,7 @@ import {
   removeStudentFromCourse,
   unEnrollStudentFromCourse,
   updateCourse,
+  markCourseAsCompleted,
 } from "./course.controller.js";
 
 const coursesRouter = express.Router();
@@ -25,11 +26,10 @@ coursesRouter.delete(
   removeStudentFromCourse
 );
 
-coursesRouter
-  .route("/:courseId/students/:studentId/enroll")
-  .post(enrollStudentToCourse)
-  .delete(unEnrollStudentFromCourse);
+coursesRouter.post("/:courseId/enroll", enrollStudentToCourse);
 
-coursesRouter.route("/:courseId/complete").get(getCourse);
+coursesRouter.delete("/:courseId/unenroll", unEnrollStudentFromCourse);
+
+coursesRouter.route("/:courseId/complete").post(markCourseAsCompleted);
 
 export default coursesRouter;
