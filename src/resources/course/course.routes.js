@@ -6,6 +6,7 @@ import {
   getAllCourses,
   getCourse,
   removeStudentFromCourse,
+  unEnrollStudentFromCourse,
   updateCourse,
 } from "./course.controller.js";
 
@@ -24,9 +25,9 @@ coursesRouter.delete(
   removeStudentFromCourse
 );
 
-coursesRouter.post(
-  "/:courseId/students/:studentId/enroll",
-  enrollStudentToCourse
-);
+coursesRouter
+  .route("/:courseId/students/:studentId/enroll")
+  .post(enrollStudentToCourse)
+  .delete(unEnrollStudentFromCourse);
 
 export default coursesRouter;
