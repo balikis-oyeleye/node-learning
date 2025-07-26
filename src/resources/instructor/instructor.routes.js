@@ -1,5 +1,8 @@
 import express from "express";
-import { getCoursesByInstructor, getInstructor } from "./instructor.controller";
+import {
+  getCoursesByInstructor,
+  getInstructor,
+} from "./instructor.controller.js";
 
 const instructorRouter = express.Router();
 

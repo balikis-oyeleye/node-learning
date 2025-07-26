@@ -45,6 +45,6 @@ app.use(errorHandler);
  * Port configuration
  */
 app.listen(config.PORT, () => {
-  console.log(`Server is running on port ${config.PORT}`);
+  console.log(`Server is running on port http://localhost:${config.PORT}`);
   connectDatabase();
 });
