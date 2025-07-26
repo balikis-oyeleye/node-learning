@@ -30,4 +30,6 @@ coursesRouter
   .post(enrollStudentToCourse)
   .delete(unEnrollStudentFromCourse);
 
+coursesRouter.route("/:courseId/complete").get(getCourse);
+
 export default coursesRouter;

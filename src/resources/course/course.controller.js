@@ -302,3 +302,48 @@ export const unEnrollStudentFromCourse = async (req, res) => {
     200
   );
 };
+
+export const markCourseAsCompleted = async (req, res) => {
+  const courseId = req.params.courseId;
+
+  if (!courseId || !mongoose.Types.ObjectId.isValid(courseId)) {
+    return ResponseHandler.send(res, false, "Invalid Course ID", 400);
+  }
+
+  const course = await Course.findById(courseId);
+
+  if (!course) {
+    return ResponseHandler.send(res, false, "Course not found", 404);
+  }
+
+  const student = await Student.findById(req.user.userId).populate("user");
+
+  if (!student) {
+    return ResponseHandler.send(res, false, "Student not found", 404);
+  }
+
+  if (student.user.userType !== "student") {
+    return ResponseHandler.send(res, false, "User is not a student", 404);
+  }
+
+  if (!student.activeCourses.includes(courseId)) {
+    return ResponseHandler.send(
+      res,
+      false,
+      "Student is not enrolled in this course",
+      404
+    );
+  }
+
+  await Student.updateOne(
+    { _id: req.user.userId },
+    { $addToSet: { completedCourses: courseId } }
+  );
+
+  return ResponseHandler.send(
+    res,
+    true,
+    "Course marked as completed successfully",
+    200
+  );
+};
