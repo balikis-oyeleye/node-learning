@@ -1,11 +1,13 @@
 const formatZodError = (error) => {
   const formatted = {};
+
   error.errors.forEach((err) => {
     if (err.path.length > 0) {
       const field = err.path[0];
       formatted[field] = err.message;
     }
   });
+
   return formatted;
 };
 
