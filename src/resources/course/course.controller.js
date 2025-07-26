@@ -4,6 +4,7 @@ import { validateSchema } from "../../utils/validate.js";
 import Course from "./course.model.js";
 import { courseSchema } from "./course.schema.js";
 import Instructor from "../instructor/instructor.model.js";
+import Student from "../student/student.model.js";
 
 export const createCourse = async (req, res) => {
   const result = validateSchema(courseSchema, req.body);
@@ -12,16 +13,18 @@ export const createCourse = async (req, res) => {
   }
 
   const courseData = result.data;
-  const course = await Course.create(courseData);
+  const course = await Course.create({
+    ...courseData,
+    userIdId: req.user.userId,
+  });
 
   if (!course) {
     return ResponseHandler.send(res, false, "Course creation failed", 500);
   }
 
-  await Instructor.findByIdAndUpdate(
-    courseData.instructorId,
-    { $push: { courses: course._id } },
-    { new: true }
+  await Instructor.updateOne(
+    { userId: req.user.userId },
+    { $push: { courses: course.courseId } }
   );
 
   return ResponseHandler.send(
@@ -58,6 +61,15 @@ export const updateCourse = async (req, res) => {
 
   if (!courseId || !mongoose.Types.ObjectId.isValid(courseId)) {
     return ResponseHandler.send(res, false, "Invalid Course ID", 400);
+  }
+
+  if (req.user.userId !== req.body.instructorId) {
+    return ResponseHandler.send(
+      res,
+      false,
+      "You are not authorized to update this course",
+      403
+    );
   }
 
   const result = validateSchema(courseSchema, req.body);
@@ -98,13 +110,25 @@ export const deleteCourse = async (req, res) => {
     return ResponseHandler.send(res, false, "Course not found", 404);
   }
 
-  await Instructor.findByIdAndUpdate(
-    course.instructorId,
-    { $pull: { courses: course._id } },
-    { new: true }
-  );
+  if (req.user.userId !== course.instructorId) {
+    return ResponseHandler.send(
+      res,
+      false,
+      "You are not authorized to delete this course",
+      403
+    );
+  }
 
-  await Course.findByIdAndDelete(courseId);
+  const result = await Course.findByIdAndDelete(courseId);
+
+  if (!result) {
+    return ResponseHandler.send(res, false, "Course deletion failed", 500);
+  }
+
+  await Instructor.updateOne(
+    { userId: req.user.userId },
+    { $pull: { courses: courseId } }
+  );
 
   return ResponseHandler.send(res, true, "Course deleted successfully", 200);
 };
@@ -118,5 +142,163 @@ export const getAllCourses = async (_, res) => {
     courses.length > 0 ? "Courses retrieved successfully" : "No courses found",
     200,
     courses
+  );
+};
+
+export const removeStudentFromCourse = async (req, res) => {
+  const courseId = req.params.courseId;
+  const studentId = req.params.studentId;
+
+  if (!courseId || !mongoose.Types.ObjectId.isValid(courseId)) {
+    return ResponseHandler.send(res, false, "Invalid Course ID", 400);
+  }
+
+  if (!studentId || !mongoose.Types.ObjectId.isValid(studentId)) {
+    return ResponseHandler.send(res, false, "Invalid Student ID", 400);
+  }
+
+  const course = await Course.findById(courseId);
+
+  if (!course) {
+    return ResponseHandler.send(res, false, "Course not found", 404);
+  }
+
+  if (req.user.userId !== course.instructorId) {
+    return ResponseHandler.send(
+      res,
+      false,
+      "You are not authorized to remove a student from this course",
+      403
+    );
+  }
+
+  const student = await Student.findById(studentId);
+
+  if (!student) {
+    return ResponseHandler.send(res, false, "Student not found", 404);
+  }
+
+  if (!student.activeCourses.includes(courseId)) {
+    return ResponseHandler.send(
+      res,
+      false,
+      "Student is not enrolled in this course",
+      404
+    );
+  }
+
+  await Student.updateOne(
+    { _id: studentId },
+    { $pull: { activeCourses: courseId } }
+  );
+
+  return ResponseHandler.send(
+    res,
+    true,
+    "Student removed from course successfully",
+    200
+  );
+};
+
+export const enrollStudentToCourse = async (req, res) => {
+  const courseId = req.params.courseId;
+  const studentId = req.params.studentId;
+
+  if (!courseId || !mongoose.Types.ObjectId.isValid(courseId)) {
+    return ResponseHandler.send(res, false, "Invalid Course ID", 400);
+  }
+
+  if (!studentId || !mongoose.Types.ObjectId.isValid(studentId)) {
+    return ResponseHandler.send(res, false, "Invalid Student ID", 400);
+  }
+
+  const course = await Course.findById(courseId);
+
+  if (!course) {
+    return ResponseHandler.send(res, false, "Course not found", 404);
+  }
+
+  const student = await Student.findById(studentId).populate("user");
+
+  if (!student) {
+    return ResponseHandler.send(res, false, "Student not found", 404);
+  }
+
+  if (student.user.userType !== "student") {
+    return ResponseHandler.send(res, false, "User is not a student", 404);
+  }
+
+  if (student.activeCourses.includes(courseId)) {
+    return ResponseHandler.send(
+      res,
+      false,
+      "Student is already enrolled in this course",
+      409
+    );
+  }
+
+  await Student.updateOne(
+    { _id: studentId },
+    { $addToSet: { activeCourses: courseId } }
+  );
+
+  await Course.updateOne(
+    { _id: courseId },
+    { $addToSet: { students: studentId } }
+  );
+
+  return ResponseHandler.send(
+    res,
+    true,
+    "Student enrolled to course successfully",
+    200
+  );
+};
+
+export const unEnrollStudentFromCourse = async (req, res) => {
+  const courseId = req.params.courseId;
+  const studentId = req.params.studentId;
+
+  if (!courseId || !mongoose.Types.ObjectId.isValid(courseId)) {
+    return ResponseHandler.send(res, false, "Invalid Course ID", 400);
+  }
+
+  if (!studentId || !mongoose.Types.ObjectId.isValid(studentId)) {
+    return ResponseHandler.send(res, false, "Invalid Student ID", 400);
+  }
+
+  const course = await Course.findById(courseId);
+
+  if (!course) {
+    return ResponseHandler.send(res, false, "Course not found", 404);
+  }
+
+  const student = await Student.findById(studentId);
+
+  if (!student) {
+    return ResponseHandler.send(res, false, "Student not found", 404);
+  }
+
+  if (!student.activeCourses.includes(courseId)) {
+    return ResponseHandler.send(
+      res,
+      false,
+      "Student is not enrolled in this course",
+      404
+    );
+  }
+
+  await Student.updateOne(
+    { _id: studentId },
+    { $pull: { activeCourses: courseId } }
+  );
+
+  await Course.updateOne({ _id: courseId }, { $pull: { students: studentId } });
+
+  return ResponseHandler.send(
+    res,
+    true,
+    "Student removed from course successfully",
+    200
   );
 };

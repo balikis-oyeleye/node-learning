@@ -44,12 +44,12 @@ export const registerUser = async (req, res) => {
 
   if (userType === "student") {
     await Student.create({
-      userId: newUser.userId,
+      user: newUser.userId,
       classLevel,
     });
   } else if (userType === "instructor") {
     await Instructor.create({
-      userId: newUser.userId,
+      user: newUser.userId,
     });
   }
 

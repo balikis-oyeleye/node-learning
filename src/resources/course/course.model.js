@@ -11,7 +11,7 @@ const courseSchema = new mongoose.Schema(
     instructorId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "Instructor",
+      ref: "User",
     },
     categories: {
       type: [String],
@@ -29,6 +29,11 @@ const courseSchema = new mongoose.Schema(
     isActive: {
       type: Boolean,
       default: true,
+    },
+    students: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "User",
+      default: [],
     },
   },
   {
