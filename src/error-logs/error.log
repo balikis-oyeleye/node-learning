@@ -36,3 +36,112 @@
     at param (C:\Users\Default\Projects\node-learning\node_modules\router\index.js:600:14)
     at param (C:\Users\Default\Projects\node-learning\node_modules\router\index.js:610:14)
     at processParams (C:\Users\Default\Projects\node-learning\node_modules\router\index.js:664:3)
+[2025-07-26T16:03:38.223Z] ERROR: mongoose is not defined - ReferenceError: mongoose is not defined
+    at getStudent (file:///C:/Users/Default/Projects/node-learning/src/resources/student/student.controller.js:28:22)
+    at Layer.handleRequest (C:\Users\Default\Projects\node-learning\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\Default\Projects\node-learning\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (C:\Users\Default\Projects\node-learning\node_modules\router\lib\route.js:117:3)
+    at handle (C:\Users\Default\Projects\node-learning\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (C:\Users\Default\Projects\node-learning\node_modules\router\lib\layer.js:152:17)
+    at C:\Users\Default\Projects\node-learning\node_modules\router\index.js:295:15
+    at param (C:\Users\Default\Projects\node-learning\node_modules\router\index.js:600:14)
+    at param (C:\Users\Default\Projects\node-learning\node_modules\router\index.js:610:14)
+    at processParams (C:\Users\Default\Projects\node-learning\node_modules\router\index.js:664:3)
+[2025-07-26T16:03:51.904Z] ERROR: ResponseHandler is not defined - ReferenceError: ResponseHandler is not defined
+    at getStudent (file:///C:/Users/Default/Projects/node-learning/src/resources/student/student.controller.js:39:3)
+    at Layer.handleRequest (C:\Users\Default\Projects\node-learning\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\Default\Projects\node-learning\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (C:\Users\Default\Projects\node-learning\node_modules\router\lib\route.js:117:3)
+    at handle (C:\Users\Default\Projects\node-learning\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (C:\Users\Default\Projects\node-learning\node_modules\router\lib\layer.js:152:17)
+    at C:\Users\Default\Projects\node-learning\node_modules\router\index.js:295:15
+    at param (C:\Users\Default\Projects\node-learning\node_modules\router\index.js:600:14)
+    at param (C:\Users\Default\Projects\node-learning\node_modules\router\index.js:610:14)
+    at processParams (C:\Users\Default\Projects\node-learning\node_modules\router\index.js:664:3)
+[2025-07-26T16:03:53.773Z] ERROR: ResponseHandler is not defined - ReferenceError: ResponseHandler is not defined
+    at getStudent (file:///C:/Users/Default/Projects/node-learning/src/resources/student/student.controller.js:39:3)
+    at Layer.handleRequest (C:\Users\Default\Projects\node-learning\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\Default\Projects\node-learning\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (C:\Users\Default\Projects\node-learning\node_modules\router\lib\route.js:117:3)
+    at handle (C:\Users\Default\Projects\node-learning\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (C:\Users\Default\Projects\node-learning\node_modules\router\lib\layer.js:152:17)
+    at C:\Users\Default\Projects\node-learning\node_modules\router\index.js:295:15
+    at param (C:\Users\Default\Projects\node-learning\node_modules\router\index.js:600:14)
+    at param (C:\Users\Default\Projects\node-learning\node_modules\router\index.js:610:14)
+    at processParams (C:\Users\Default\Projects\node-learning\node_modules\router\index.js:664:3)
+[2025-07-26T16:04:06.500Z] ERROR: Converting circular structure to JSON
+    --> starting at object with constructor 'MongoClient'
+    |     property 's' -> object with constructor 'Object'
+    |     property 'sessionPool' -> object with constructor 'ServerSessionPool'
+    --- property 'client' closes the circle - TypeError: Converting circular structure to JSON
+    --> starting at object with constructor 'MongoClient'
+    |     property 's' -> object with constructor 'Object'
+    |     property 'sessionPool' -> object with constructor 'ServerSessionPool'
+    --- property 'client' closes the circle
+    at JSON.stringify (<anonymous>)
+    at stringify (C:\Users\Default\Projects\node-learning\node_modules\express\lib\response.js:1020:12)
+    at ServerResponse.json (C:\Users\Default\Projects\node-learning\node_modules\express\lib\response.js:243:14)
+    at ResponseHandler.response (file:///C:/Users/Default/Projects/node-learning/src/utils/response-handler.js:15:42)
+    at ResponseHandler.send (file:///C:/Users/Default/Projects/node-learning/src/utils/response-handler.js:25:8)
+    at getStudent (file:///C:/Users/Default/Projects/node-learning/src/resources/student/student.controller.js:40:26)
+    at Layer.handleRequest (C:\Users\Default\Projects\node-learning\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\Default\Projects\node-learning\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (C:\Users\Default\Projects\node-learning\node_modules\router\lib\route.js:117:3)
+    at handle (C:\Users\Default\Projects\node-learning\node_modules\router\index.js:435:11)
+[2025-07-26T16:04:08.108Z] ERROR: Converting circular structure to JSON
+    --> starting at object with constructor 'MongoClient'
+    |     property 's' -> object with constructor 'Object'
+    |     property 'sessionPool' -> object with constructor 'ServerSessionPool'
+    --- property 'client' closes the circle - TypeError: Converting circular structure to JSON
+    --> starting at object with constructor 'MongoClient'
+    |     property 's' -> object with constructor 'Object'
+    |     property 'sessionPool' -> object with constructor 'ServerSessionPool'
+    --- property 'client' closes the circle
+    at JSON.stringify (<anonymous>)
+    at stringify (C:\Users\Default\Projects\node-learning\node_modules\express\lib\response.js:1020:12)
+    at ServerResponse.json (C:\Users\Default\Projects\node-learning\node_modules\express\lib\response.js:243:14)
+    at ResponseHandler.response (file:///C:/Users/Default/Projects/node-learning/src/utils/response-handler.js:15:42)
+    at ResponseHandler.send (file:///C:/Users/Default/Projects/node-learning/src/utils/response-handler.js:25:8)
+    at getStudent (file:///C:/Users/Default/Projects/node-learning/src/resources/student/student.controller.js:40:26)
+    at Layer.handleRequest (C:\Users\Default\Projects\node-learning\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\Default\Projects\node-learning\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (C:\Users\Default\Projects\node-learning\node_modules\router\lib\route.js:117:3)
+    at handle (C:\Users\Default\Projects\node-learning\node_modules\router\index.js:435:11)
+[2025-07-26T16:04:36.283Z] ERROR: Converting circular structure to JSON
+    --> starting at object with constructor 'MongoClient'
+    |     property 's' -> object with constructor 'Object'
+    |     property 'sessionPool' -> object with constructor 'ServerSessionPool'
+    --- property 'client' closes the circle - TypeError: Converting circular structure to JSON
+    --> starting at object with constructor 'MongoClient'
+    |     property 's' -> object with constructor 'Object'
+    |     property 'sessionPool' -> object with constructor 'ServerSessionPool'
+    --- property 'client' closes the circle
+    at JSON.stringify (<anonymous>)
+    at stringify (C:\Users\Default\Projects\node-learning\node_modules\express\lib\response.js:1020:12)
+    at ServerResponse.json (C:\Users\Default\Projects\node-learning\node_modules\express\lib\response.js:243:14)
+    at ResponseHandler.response (file:///C:/Users/Default/Projects/node-learning/src/utils/response-handler.js:15:42)
+    at ResponseHandler.send (file:///C:/Users/Default/Projects/node-learning/src/utils/response-handler.js:25:8)
+    at getStudent (file:///C:/Users/Default/Projects/node-learning/src/resources/student/student.controller.js:40:26)
+    at Layer.handleRequest (C:\Users\Default\Projects\node-learning\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\Default\Projects\node-learning\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (C:\Users\Default\Projects\node-learning\node_modules\router\lib\route.js:117:3)
+    at handle (C:\Users\Default\Projects\node-learning\node_modules\router\index.js:435:11)
+[2025-07-26T16:05:01.172Z] ERROR: Converting circular structure to JSON
+    --> starting at object with constructor 'MongoClient'
+    |     property 's' -> object with constructor 'Object'
+    |     property 'sessionPool' -> object with constructor 'ServerSessionPool'
+    --- property 'client' closes the circle - TypeError: Converting circular structure to JSON
+    --> starting at object with constructor 'MongoClient'
+    |     property 's' -> object with constructor 'Object'
+    |     property 'sessionPool' -> object with constructor 'ServerSessionPool'
+    --- property 'client' closes the circle
+    at JSON.stringify (<anonymous>)
+    at stringify (C:\Users\Default\Projects\node-learning\node_modules\express\lib\response.js:1020:12)
+    at ServerResponse.json (C:\Users\Default\Projects\node-learning\node_modules\express\lib\response.js:243:14)
+    at ResponseHandler.response (file:///C:/Users/Default/Projects/node-learning/src/utils/response-handler.js:15:42)
+    at ResponseHandler.send (file:///C:/Users/Default/Projects/node-learning/src/utils/response-handler.js:25:8)
+    at getStudent (file:///C:/Users/Default/Projects/node-learning/src/resources/student/student.controller.js:42:26)
+    at Layer.handleRequest (C:\Users\Default\Projects\node-learning\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\Default\Projects\node-learning\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (C:\Users\Default\Projects\node-learning\node_modules\router\lib\route.js:117:3)
+    at handle (C:\Users\Default\Projects\node-learning\node_modules\router\index.js:435:11)

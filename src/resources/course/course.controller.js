@@ -31,7 +31,7 @@ export const createCourse = async (req, res) => {
   }
 
   await Instructor.updateOne(
-    { userId: userId },
+    { user: userId },
     { $push: { courses: course.courseId } }
   );
 
