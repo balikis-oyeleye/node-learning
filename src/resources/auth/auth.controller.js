@@ -38,6 +38,7 @@ export const registerUser = async (req, res) => {
     phoneNumber,
     email,
     password: hashedPassword,
+    userType,
   });
 
   await newUser.save();
@@ -59,6 +60,7 @@ export const registerUser = async (req, res) => {
     lastName: newUser.lastName,
     phoneNumber: newUser.phoneNumber,
     email: newUser.email,
+    userType: newUser.userType,
   });
 };
 
@@ -92,6 +94,7 @@ export const loginUser = async (req, res) => {
       lastName: existingUser.lastName,
       phoneNumber: existingUser.phoneNumber,
       email: existingUser.email,
+      userType: existingUser.userType,
     },
   });
 };

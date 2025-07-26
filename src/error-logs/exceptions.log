@@ -1,0 +1,33 @@
+[2025-07-26T14:42:55.555Z] ERROR: TypeError: Missing parameter name at 1: https://git.new/pathToRegexpError
+    at name (C:\Users\Default\Projects\node-learning\node_modules\path-to-regexp\dist\index.js:73:19)
+    at lexer (C:\Users\Default\Projects\node-learning\node_modules\path-to-regexp\dist\index.js:91:27)
+    at lexer.next (<anonymous>)
+    at Iter.peek (C:\Users\Default\Projects\node-learning\node_modules\path-to-regexp\dist\index.js:106:38)
+    at Iter.tryConsume (C:\Users\Default\Projects\node-learning\node_modules\path-to-regexp\dist\index.js:112:28)
+    at Iter.text (C:\Users\Default\Projects\node-learning\node_modules\path-to-regexp\dist\index.js:128:30)
+    at consume (C:\Users\Default\Projects\node-learning\node_modules\path-to-regexp\dist\index.js:152:29)
+    at parse (C:\Users\Default\Projects\node-learning\node_modules\path-to-regexp\dist\index.js:183:20)
+    at C:\Users\Default\Projects\node-learning\node_modules\path-to-regexp\dist\index.js:294:74
+    at Array.map (<anonymous>)
+[2025-07-26T14:43:05.338Z] ERROR: TypeError: Missing parameter name at 1: https://git.new/pathToRegexpError
+    at name (C:\Users\Default\Projects\node-learning\node_modules\path-to-regexp\dist\index.js:73:19)
+    at lexer (C:\Users\Default\Projects\node-learning\node_modules\path-to-regexp\dist\index.js:91:27)
+    at lexer.next (<anonymous>)
+    at Iter.peek (C:\Users\Default\Projects\node-learning\node_modules\path-to-regexp\dist\index.js:106:38)
+    at Iter.tryConsume (C:\Users\Default\Projects\node-learning\node_modules\path-to-regexp\dist\index.js:112:28)
+    at Iter.text (C:\Users\Default\Projects\node-learning\node_modules\path-to-regexp\dist\index.js:128:30)
+    at consume (C:\Users\Default\Projects\node-learning\node_modules\path-to-regexp\dist\index.js:152:29)
+    at parse (C:\Users\Default\Projects\node-learning\node_modules\path-to-regexp\dist\index.js:183:20)
+    at C:\Users\Default\Projects\node-learning\node_modules\path-to-regexp\dist\index.js:294:74
+    at Array.map (<anonymous>)
+[2025-07-26T14:43:16.013Z] ERROR: TypeError: Missing parameter name at 1: https://git.new/pathToRegexpError
+    at name (C:\Users\Default\Projects\node-learning\node_modules\path-to-regexp\dist\index.js:73:19)
+    at lexer (C:\Users\Default\Projects\node-learning\node_modules\path-to-regexp\dist\index.js:91:27)
+    at lexer.next (<anonymous>)
+    at Iter.peek (C:\Users\Default\Projects\node-learning\node_modules\path-to-regexp\dist\index.js:106:38)
+    at Iter.tryConsume (C:\Users\Default\Projects\node-learning\node_modules\path-to-regexp\dist\index.js:112:28)
+    at Iter.text (C:\Users\Default\Projects\node-learning\node_modules\path-to-regexp\dist\index.js:128:30)
+    at consume (C:\Users\Default\Projects\node-learning\node_modules\path-to-regexp\dist\index.js:152:29)
+    at parse (C:\Users\Default\Projects\node-learning\node_modules\path-to-regexp\dist\index.js:183:20)
+    at C:\Users\Default\Projects\node-learning\node_modules\path-to-regexp\dist\index.js:294:74
+    at Array.map (<anonymous>)
