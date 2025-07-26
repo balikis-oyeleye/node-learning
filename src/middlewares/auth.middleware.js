@@ -32,6 +32,7 @@ export const protectedRoutes = async (req, res, next) => {
     req.user = {
       userId: decoded.userId,
       email: decoded.email,
+      userType: decoded.userType,
     };
 
     next();

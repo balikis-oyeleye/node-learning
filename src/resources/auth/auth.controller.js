@@ -84,7 +84,11 @@ export const loginUser = async (req, res) => {
     return ResponseHandler.send(res, false, "Invalid credentials", 401);
   }
 
-  const token = createToken(existingUser.userId, existingUser.email);
+  const token = createToken(
+    existingUser.userId,
+    existingUser.email,
+    existingUser.userType
+  );
 
   return ResponseHandler.send(res, true, "User logged in successfully", 200, {
     token,

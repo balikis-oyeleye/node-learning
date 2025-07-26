@@ -20,3 +20,8 @@
     at param (C:\Users\Default\Projects\node-learning\node_modules\router\index.js:600:14)
     at param (C:\Users\Default\Projects\node-learning\node_modules\router\index.js:610:14)
     at processParams (C:\Users\Default\Projects\node-learning\node_modules\router\index.js:664:3)
+[2025-07-26T15:04:27.425Z] ERROR: Course validation failed: instructorId: Path `instructorId` is required. - ValidationError: Course validation failed: instructorId: Path `instructorId` is required.
+    at Document.invalidate (C:\Users\Default\Projects\node-learning\node_modules\mongoose\lib\document.js:3354:32)
+    at C:\Users\Default\Projects\node-learning\node_modules\mongoose\lib\document.js:3115:17
+    at C:\Users\Default\Projects\node-learning\node_modules\mongoose\lib\schemaType.js:1410:9
+    at process.processTicksAndRejections (node:internal/process/task_queues:85:11)
