@@ -1,5 +1,6 @@
 import { ResponseHandler } from "../../utils/response-handler.js";
 import Instructor from "./instructor.model.js";
+import mongoose from "mongoose";
 
 export const getCoursesByInstructor = async (req, res) => {
   const instructorId = req.params.instructorId;
@@ -19,7 +20,9 @@ export const getCoursesByInstructor = async (req, res) => {
   return ResponseHandler.send(
     res,
     true,
-    "Courses retrieved successfully",
+    instructor.courses.length > 0
+      ? "Courses retrieved successfully"
+      : "No courses found",
     200,
     instructor.courses
   );
