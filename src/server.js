@@ -1,6 +1,3 @@
-import dotenv from "dotenv";
-dotenv.config();
-
 import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
@@ -10,7 +7,6 @@ import cors from "cors";
 import { errorHandler } from "./middlewares/global-errors.middleware.js";
 import setupRoutes from "./startup/routes.js";
 import { logger } from "./config/logger.js";
-import { ResponseHandler } from "./utils/response-handler.js";
 
 const app = express();
 
