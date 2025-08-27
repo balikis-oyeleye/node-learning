@@ -5,6 +5,7 @@ import Course from "./course.model.js";
 import { courseSchema } from "./course.schema.js";
 import Instructor from "../instructor/instructor.model.js";
 import Student from "../student/student.model.js";
+import { validateId } from "../../utils/validate.js";
 
 export const createCourse = async (req, res) => {
   const result = validateSchema(courseSchema, req.body);
@@ -46,9 +47,8 @@ export const createCourse = async (req, res) => {
 
 export const getCourse = async (req, res) => {
   const courseId = req.params.courseId;
-  if (!courseId || !mongoose.Types.ObjectId.isValid(courseId)) {
-    return ResponseHandler.send(res, false, "Invalid Course ID", 400);
-  }
+
+  validateId(courseId);
 
   const course = await Course.findById(courseId).populate("instructorId");
   if (!course) {
@@ -69,9 +69,7 @@ export const updateCourse = async (req, res) => {
 
   const { userId, userType } = req.user;
 
-  if (!courseId || !mongoose.Types.ObjectId.isValid(courseId)) {
-    return ResponseHandler.send(res, false, "Invalid Course ID", 400);
-  }
+  validateId(courseId);
 
   if (userType !== "instructor") {
     return ResponseHandler.send(res, false, "User is not an instructor", 403);
@@ -118,9 +116,7 @@ export const deleteCourse = async (req, res) => {
 
   const { userId, userType } = req.user;
 
-  if (!courseId || !mongoose.Types.ObjectId.isValid(courseId)) {
-    return ResponseHandler.send(res, false, "Invalid Course ID", 400);
-  }
+  validateId(courseId);
 
   if (userType !== "instructor") {
     return ResponseHandler.send(res, false, "User is not an instructor", 403);
@@ -172,17 +168,13 @@ export const removeStudentFromCourse = async (req, res) => {
 
   const { userId, userType } = req.user;
 
-  if (!courseId || !mongoose.Types.ObjectId.isValid(courseId)) {
-    return ResponseHandler.send(res, false, "Invalid Course ID", 400);
-  }
+  validateId(courseId);
 
   if (userType !== "instructor") {
     return ResponseHandler.send(res, false, "User is not an instructor", 403);
   }
 
-  if (!studentId || !mongoose.Types.ObjectId.isValid(studentId)) {
-    return ResponseHandler.send(res, false, "Invalid Student ID", 400);
-  }
+  validateId(studentId);
 
   const course = await Course.findById(courseId);
 
@@ -232,9 +224,7 @@ export const enrollStudentToCourse = async (req, res) => {
 
   const { userType, userId } = req.user;
 
-  if (!courseId || !mongoose.Types.ObjectId.isValid(courseId)) {
-    return ResponseHandler.send(res, false, "Invalid Course ID", 400);
-  }
+  validateId(courseId);
 
   if (userType !== "student") {
     return ResponseHandler.send(res, false, "User is not an student", 403);
@@ -284,9 +274,7 @@ export const unEnrollStudentFromCourse = async (req, res) => {
 
   const { userType, userId } = req.user;
 
-  if (!courseId || !mongoose.Types.ObjectId.isValid(courseId)) {
-    return ResponseHandler.send(res, false, "Invalid Course ID", 400);
-  }
+  validateId(courseId);
 
   if (userType !== "student") {
     return ResponseHandler.send(res, false, "User is not an student", 403);
@@ -340,9 +328,7 @@ export const markCourseAsCompleted = async (req, res) => {
     return ResponseHandler.send(res, false, "User is not a student", 404);
   }
 
-  if (!courseId || !mongoose.Types.ObjectId.isValid(courseId)) {
-    return ResponseHandler.send(res, false, "Invalid Course ID", 400);
-  }
+  validateId(courseId);
 
   const course = await Course.findById(courseId);
 

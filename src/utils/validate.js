@@ -22,3 +22,10 @@ export const validateSchema = (schema, data) => {
 
   return { success: true, data: result.data };
 };
+
+export const validateId = (id) => {
+  if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+    return false;
+  }
+  return true;
+};

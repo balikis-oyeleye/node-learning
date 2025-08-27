@@ -1,11 +1,11 @@
 import Student from "./student.model.js";
 import { ResponseHandler } from "../../utils/response-handler.js";
-import { StudentService } from "./student.service.js";
+import { validateId } from "../../utils/validate.js";
 
 export const getStudentCourses = async (req, res) => {
   const studentId = req.params.studentId;
 
-  StudentService.isValidStudentId(studentId);
+  validateId(studentId);
 
   const student = await Student.findById(studentId).populate("courses");
 
@@ -25,7 +25,7 @@ export const getStudentCourses = async (req, res) => {
 export const getStudent = async (req, res) => {
   const studentId = req.params.studentId;
 
-  StudentService.isValidStudentId(studentId);
+  validateId(studentId);
 
   const student = await Student.findById(studentId).populate("user");
 

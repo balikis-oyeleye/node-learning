@@ -1,6 +1,7 @@
 import { ResponseHandler } from "../../utils/response-handler.js";
 import Instructor from "./instructor.model.js";
 import mongoose from "mongoose";
+import { validateId } from "../../utils/validate.js";
 
 export const getCoursesByInstructor = async (req, res) => {
   const instructorId = req.params.instructorId;
@@ -31,9 +32,7 @@ export const getCoursesByInstructor = async (req, res) => {
 export const getInstructor = async (req, res) => {
   const instructorId = req.params.instructorId;
 
-  if (!instructorId || !mongoose.Types.ObjectId.isValid(instructorId)) {
-    return ResponseHandler.send(res, false, "Invalid Instructor ID", 400);
-  }
+  validateId(instructorId);
 
   const instructor = await Instructor.findById(instructorId);
 
