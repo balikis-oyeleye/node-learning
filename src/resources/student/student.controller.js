@@ -1,13 +1,11 @@
-import mongoose from "mongoose";
 import Student from "./student.model.js";
 import { ResponseHandler } from "../../utils/response-handler.js";
+import { StudentService } from "./student.service.js";
 
 export const getStudentCourses = async (req, res) => {
   const studentId = req.params.studentId;
 
-  if (!studentId || !mongoose.Types.ObjectId.isValid(studentId)) {
-    return ResponseHandler.send(res, false, "Invalid Student ID", 400);
-  }
+  StudentService.isValidStudentId(studentId);
 
   const student = await Student.findById(studentId).populate("courses");
 
@@ -27,9 +25,7 @@ export const getStudentCourses = async (req, res) => {
 export const getStudent = async (req, res) => {
   const studentId = req.params.studentId;
 
-  if (!studentId || !mongoose.Types.ObjectId.isValid(studentId)) {
-    return ResponseHandler.send(res, false, "Invalid Student ID", 400);
-  }
+  StudentService.isValidStudentId(studentId);
 
   const student = await Student.findById(studentId).populate("user");
 
